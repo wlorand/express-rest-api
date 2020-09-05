@@ -8,19 +8,28 @@ const path = require('path');
 // express
 const express = require('express');
 const app = express();
-const PORT = process.env.port || 5000; // could also put this in a .env file
+const PORT = process.env.port || 5000; // could also put this in a .env fil
 
-// import mock data Model
-const members = require('./models/Members');
-
-// import middleware
+// import middleware file
 const requestLogger = require('./middleware/requestLogger');
 
-// Init Middleware -- logger will now be called on EVERY request app-wide
-// app.use(requestLogger);
+// Members API Routes
+const memberRoutes = require('./routes/api/memberRoutes');
 
-// GET members
-app.get('/api/v1/members', (req, res) => res.json(members));
+// Init Middleware
+
+// logging middleware
+app.use(requestLogger);
+
+// Body Parser middleware -- no longer need the body-parser 3p package
+app.use(express.json());
+// Form Submission support middleware
+app.use(express.urlencoded({ extended: false }));
+
+// route file middleware  -- handles addressing
+app.use('/api/v1/members', memberRoutes); // first route-level middleware  -- xtra path route, then routes as middleware
+
+// Routes - now in the routes/api/memberRoutes.js file
 
 // Static File - set static V1 -- send indiv static file
 // app.get('/', (req, res) => {

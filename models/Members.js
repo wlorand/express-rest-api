@@ -3,7 +3,7 @@
  * Desc: Mock data for REST API - rep as a Model
  */
 
-const members = [
+let members = [
   {
     id: 1,
     name: 'John Doe',
@@ -11,7 +11,7 @@ const members = [
     status: 'active',
   },
   {
-    id: 1,
+    id: 2,
     name: 'Bob Williams',
     email: 'bob@gmail.com',
     status: 'inactive',
